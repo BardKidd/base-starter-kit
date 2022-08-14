@@ -20,8 +20,6 @@
 ```bash
 |___  dist // 打包後的結果
 |___  node_modules
-|___  public // 靜態資源
-|     |___  Image
 |___  src
 |     |___  assets
 |     |     |___  css
@@ -31,7 +29,7 @@
 |     |___  hooks       // 共用 hook
 |     |___  middleware  // middleware 配置
 |     |___  pages       // 路由元件
-|     |___  reducers    // reducers 統一輸出配置 
+|     |___  reducers    // reducers 統一輸出配置
 |     |___  resource    // api 統一輸出配置
 |     |___  router      // 路由配置
 |     |___  store       // redux store 配置
