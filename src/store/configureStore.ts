@@ -5,7 +5,6 @@ import {
 } from "redux";
 import epicMiddleware from "@/middleware";
 import rootEpic from "@/epics";
-import type { Store } from "redux";
 import rootReducer from "@/reducers";
 
 // applyMiddleware 實際運作參考
@@ -16,26 +15,36 @@ function logger({ getState }: { getState: any }) {
     return (next: any) => (action: any) => {
       // logger 被呼叫後第一個傳入的參數會是下一個 middleware。
       // 該 middleware 會做甚麼事情就放在 action 裡面。
-      console.log("will dispatch", action);
+
+      console.groupCollapsed("發送的 Action");
+      console.group("%cAction：", "color: #2ecc71");
+      console.log(action);
+      console.groupEnd();
+      console.group("%cNew State：", "color: #f39c12");
+      console.log(getState());
+      console.groupEnd();
+      console.groupEnd();
 
       const returnValue = next(action);
 
-      console.log("state after dispatch", getState());
-
       return returnValue;
+    };
+  } else {
+    return (next: any) => (action: any) => {
+      return next(action);
     };
   }
 }
 
 export default function configureStore(history: any, preloadedState = {}) {
-  const composeEnhancers =
+  let composeEnhancers =
     (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
   const middleware = [epicMiddleware, logger];
 
   const enhancers = composeEnhancers(applyMiddleware(...middleware));
 
-  const store: Store = createStore(rootReducer(), preloadedState, enhancers);
+  const store = createStore(rootReducer(), preloadedState, enhancers);
 
   epicMiddleware.run(rootEpic);
   return store;

@@ -16,8 +16,6 @@ const config = {
   output: {
     path: path.resolve("dist"),
     filename: "js/index.js",
-    // 打包後使用 BrowserRouter 才不會掛掉
-    publicPath: "http://localhost:3000/",
     clean: true,
   },
   devtool: "inline-source-map",
@@ -26,9 +24,8 @@ const config = {
     port: 3000,
     // 在本地使用 BrowserRouter 才不會掛掉
     historyApiFallback: true,
-    // 當前服務器的根目錄，不是打包後的那個 dist。
-    // 名稱可以自訂，指的是從 XX 包資料夾得到資料。
-    static: "dist",
+    // 給他字串就可以抓取你的靜態資源
+    static: "src",
   },
   module: {
     rules: [
@@ -48,7 +45,7 @@ const config = {
       openAnalyzer: false,
     }),
     new Dotenv({
-      path: "../.env",
+      systemvars: true,
     }),
   ],
 };

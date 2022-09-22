@@ -15,8 +15,6 @@ const config = {
   output: {
     path: path.resolve("dist"),
     filename: "js/index.[contenthash].js",
-    // 打包後使用 BrowserRouter 才不會掛掉
-    publicPath: "./",
     clean: true,
   },
   devtool: "eval-cheap-source-map",
@@ -31,10 +29,14 @@ const config = {
   // prod 專屬的 plugins
   plugins: [
     new Dotenv({
-      path: "../.env.production",
+      path: ".env.production",
     }),
     new CompressionPlugin(),
   ],
+  performance: {
+    maxAssetSize: 100000,
+    maxEntrypointSize: 400000,
+  },
 };
 
 module.exports = merge(config, plugins, resolve);

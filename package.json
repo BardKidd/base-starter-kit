@@ -5,12 +5,12 @@
   "main": "index.tsx",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack serve --progress",
-    "build": "cross-env NODE_ENV=development webpack --color --progress --env development",
-    "build:prod": "cross-env NODE_ENV=production webpack --color --progress --env production",
+    "build": "cross-env NODE_ENV=production webpack --color --progress --env production",
     "lint": "eslint --fix src/*.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:jest": "jest",
-    "test:jest--coverage": "jest --coverage"
+    "test:jest--coverage": "jest --coverage",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
@@ -64,8 +64,11 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@types/redux-actions": "^2.6.2",
+    "antd": "^4.22.6",
+    "axios": "^0.27.2",
     "babel-plugin-macros": "^3.1.0",
     "formik": "^2.2.9",
+    "gh-pages": "^4.0.0",
     "history": "^5.3.0",
     "postcss-preset-env": "^7.7.2",
     "ramda": "^0.28.0",
