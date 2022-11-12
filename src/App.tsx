@@ -1,7 +1,7 @@
 import { useRoutes } from "react-router-dom";
 import BaseRouter from "./router";
 
-const App: React.FC = () => {
+const App = () => {
   const elements = useRoutes(BaseRouter);
   return elements;
 };

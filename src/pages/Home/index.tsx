@@ -2,9 +2,27 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { brands, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Link } from "react-router-dom";
+import { useQuery, useQueryClient, useMutation } from "react-query";
 import * as React from "react";
 
 const Home: React.FC = () => {
+  const randomMeal = async () => {
+    const result = await fetch(
+      "https://www.themealdb.com/api/json/v1/1/random.php"
+    );
+    return result.json();
+  };
+
+  const { mutate } = useMutation(() => randomMeal());
+
+  const { data, isLoading, isError, isSuccess } = useQuery(
+    "userData",
+    randomMeal,
+    {
+      staleTime: 5000,
+      keepPreviousData: true,
+    }
+  );
   return (
     <div className="demo-relative demo-w-full demo-h-screen  demo-bg-slate-700">
       <div className="demo-absolute demo-top-1/2 demo-left-1/2 demo--translate-y-1/2 demo--translate-x-1/2 demo-w-[1024px]">
@@ -12,7 +30,22 @@ const Home: React.FC = () => {
           <h1 className="demo-text-4xl demo-text-white">
             This is a sample Starter Kit !
           </h1>
+          <div className="demo-bg-white">
+            <button
+              type="button"
+              className="demo-text-slate-700 demo-font-bold demo-text-2xl"
+              onClick={() => {
+                mutate();
+              }}
+            >
+              切換
+            </button>
+          </div>
         </div>
+        {data?.meals.map((item: any) => {
+          return <p key={item.idMeal}>{item.strMeal}</p>;
+        })}
+
         <div className="demo-mx-auto demo-text-center demo-mt-5">
           <a
             target="_blank"

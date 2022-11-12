@@ -6,18 +6,22 @@ import { Provider } from "react-redux";
 import { store, history } from "./store";
 import * as React from "react";
 import FullPageSpin from "./components/Spin";
+import { QueryClientProvider, QueryClient } from "react-query";
 import "antd/dist/antd.css";
 
 // ===============================================================
 const container = document.getElementById("root");
+const queryClient = new QueryClient();
 const root = createRoot(container);
 root.render(
-  <Provider store={store}>
-    <HashRouter>
-      <React.Suspense fallback={<FullPageSpin />}>
-        <FullPageSpin />
-        <App />
-      </React.Suspense>
-    </HashRouter>
-  </Provider>
+  <QueryClientProvider client={queryClient}>
+    <Provider store={store}>
+      <HashRouter>
+        <React.Suspense fallback={<FullPageSpin />}>
+          <FullPageSpin />
+          <App />
+        </React.Suspense>
+      </HashRouter>
+    </Provider>
+  </QueryClientProvider>
 );
