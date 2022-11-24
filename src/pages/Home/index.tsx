@@ -4,6 +4,7 @@ import { brands, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Link } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from "react-query";
 import * as React from "react";
+import _ from "lodash";
 
 const Home: React.FC = () => {
   const randomMeal = async () => {
@@ -23,6 +24,7 @@ const Home: React.FC = () => {
       keepPreviousData: true,
     }
   );
+
   return (
     <div className="demo-relative demo-w-full demo-h-screen  demo-bg-slate-700">
       <div className="demo-absolute demo-top-1/2 demo-left-1/2 demo--translate-y-1/2 demo--translate-x-1/2 demo-w-[1024px]">

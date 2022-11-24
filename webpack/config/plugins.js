@@ -2,6 +2,7 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
 // prod 和 dev 都會用到的 plugins
 module.exports = {
@@ -19,5 +20,7 @@ module.exports = {
     new ESLintPlugin({
       context: path.resolve(".eslintrc.js"),
     }),
+    // 搭配 babel-plugin-lodash 自動載入 lodash，並且排除未使用的屬性。
+    new LodashModuleReplacementPlugin(),
   ],
 };
