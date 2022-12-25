@@ -7,6 +7,7 @@ import { store, history } from "./store";
 import * as React from "react";
 import FullPageSpin from "./components/Spin";
 import { QueryClientProvider, QueryClient } from "react-query";
+import CommonContext from "./context/commonContext";
 import "antd/dist/antd.css";
 
 // ===============================================================
@@ -16,12 +17,14 @@ const root = createRoot(container);
 root.render(
   <QueryClientProvider client={queryClient}>
     <Provider store={store}>
-      <HashRouter>
-        <React.Suspense fallback={<FullPageSpin />}>
-          <FullPageSpin />
-          <App />
-        </React.Suspense>
-      </HashRouter>
+      <CommonContext>
+        <HashRouter>
+          <React.Suspense fallback={<FullPageSpin />}>
+            <FullPageSpin />
+            <App />
+          </React.Suspense>
+        </HashRouter>
+      </CommonContext>
     </Provider>
   </QueryClientProvider>
 );

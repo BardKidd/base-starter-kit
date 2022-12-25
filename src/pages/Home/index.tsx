@@ -5,14 +5,21 @@ import { Link } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from "react-query";
 import * as React from "react";
 import _ from "lodash";
+import { useContext } from "react";
+import { InitContext } from "../../context/commonContext";
 
 const Home: React.FC = () => {
+  const { count, incrementCount } = useContext(InitContext);
   const randomMeal = async () => {
     const result = await fetch(
       "https://www.themealdb.com/api/json/v1/1/random.php"
     );
     return result.json();
   };
+
+  useEffect(() => {
+    console.log(count);
+  }, [count])
 
   const { mutate } = useMutation(() => randomMeal());
 
@@ -41,6 +48,13 @@ const Home: React.FC = () => {
               }}
             >
               切換
+            </button>
+            <button
+              type="button"
+              className="demo-text-slate-700 demo-font-bold demo-text-2xl"
+              onClick={incrementCount}
+            >
+              Increment Count!
             </button>
           </div>
         </div>
