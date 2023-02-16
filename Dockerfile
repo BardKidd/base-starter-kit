@@ -1,9 +1,19 @@
-FROM node:14-alpine as base
-COPY . .
-RUN npm install
-RUN npm run build
+# FROM node:alpine as build
+# WORKDIR /app
+# COPY package.json /app
+# RUN npm install
+# COPY . /app
+# RUN npm run build
 
-FROM base
+# FROM httpd
+# EXPOSE 80
+# COPY --from=build /app/dist /usr/local/apache2/htdocs/
+
+FROM node:alpine
 WORKDIR /app
-COPY --from=base . /app
-CMD ["npm", "run", "start"]
+COPY package.json /app
+RUN npm install
+COPY . /app
+EXPOSE 3000
+CMD ["npm", "start"]
+

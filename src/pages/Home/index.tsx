@@ -19,12 +19,12 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     console.log(count);
-  }, [count])
+  }, [count]);
 
   const { mutate } = useMutation(() => randomMeal());
 
   const { data, isLoading, isError, isSuccess } = useQuery(
-    "userData",
+    ["userData", mutate],
     randomMeal,
     {
       staleTime: 5000,
@@ -37,7 +37,7 @@ const Home: React.FC = () => {
       <div className="demo-absolute demo-top-1/2 demo-left-1/2 demo--translate-y-1/2 demo--translate-x-1/2 demo-w-[1024px]">
         <div className="demo-container demo-p-4 demo-mx-auto demo-text-center">
           <h1 className="demo-text-4xl demo-text-white">
-            This is a sample Starter Kit !
+            再改一次？
           </h1>
           <div className="demo-bg-white">
             <button
@@ -47,7 +47,7 @@ const Home: React.FC = () => {
                 mutate();
               }}
             >
-              切換
+              切換!!
             </button>
             <button
               type="button"
